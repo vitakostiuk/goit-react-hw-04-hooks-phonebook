@@ -17,11 +17,12 @@ export const App = () => {
       name,
       number,
     };
-
     setContacts(prevContacts => {
-      return prevContacts.find(item => item.name === contact.name)
-        ? alert(`${contact.name} is already in contacts.`)
-        : [contact, ...contacts];
+      if (prevContacts.find(item => item.name === contact.name)) {
+        alert(`${contact.name} is already in contacts.`);
+        return prevContacts;
+      }
+      return [contact, ...prevContacts];
     });
   };
 
@@ -37,7 +38,6 @@ export const App = () => {
 
   const filteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
-
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
